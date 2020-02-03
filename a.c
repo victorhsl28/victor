@@ -457,10 +457,10 @@ int main()
 
 		//menu
 		long long escolha, p, q, e;
-		printf("-------------------------------------------------------\n");
+		printf("-----------------------------------------------------------\n");
 		printf("Escolha uma opcao:\n");
-		printf("1- Gerar chave publica 2- Encriptar 3- Desencriptar\n");
-		printf("-------------------------------------------------------\n");
+		printf("1- Gerar chave publica 2- Encriptar 3- Desencriptar 4- Sair\n");
+		printf("-----------------------------------------------------------\n");
 		scanf("%llu", &escolha);
 		getchar();
 
@@ -479,7 +479,7 @@ int main()
 		{
 			desencriptar();
 		}
-		else if(escolha == 0)
+		else if(escolha == 4)
 		{
 			break;
 		}
