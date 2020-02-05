@@ -83,20 +83,29 @@ void chave_publica(long long p, long long q, long long e)
 {
 	printf("Digite um par de numeros primos:\n");
 	scanf("%llu %llu", &p, &q);
-	printf("Digite um e\n");
-	scanf("%llu", &e);
 	if(eh_primo(p) == 1 && eh_primo(q) == 1)
 	{
-		while(mdc((p-1) * (q-1), e) != 1)
+		if(p*q < 28)
 		{
-			printf("Esse numero nao e relativamente primo! Sugestoes:\n");
-			sugerir_e((p-1) * (q-1), e);
-			scanf("%llu", &e);
+			printf("Esses numeros sao muito pequenos para o anel!\n");
 		}
-		FILE *chave = fopen("chave.txt", "a");
-		fprintf(chave,"Chave publica: (%llu, %llu)", p*q, e);
-		fclose(chave);
-		printf("Chave publica: (%llu, %llu)\n", p*q, e);
+		else
+		{
+
+			printf("Digite um e\n");
+			scanf("%llu", &e);
+			while(mdc((p-1) * (q-1), e) != 1)
+			{
+				printf("Esse numero nao e relativamente primo! Sugestoes:\n");
+				sugerir_e((p-1) * (q-1), e);
+				scanf("%llu", &e);
+			}
+
+			FILE *chave = fopen("chave.txt", "a");
+			fprintf(chave,"Chave publica: (%llu, %llu)", p*q, e);
+			fclose(chave);
+			printf("Chave publica: (%llu, %llu)\n", p*q, e);
+		}
 	}
 }
 
@@ -290,7 +299,7 @@ void criptografar()
 				fprintf(mensagem,"%d", lista_numero[j]);
 			}
 			else
-			{
+			{ 
 				fprintf(mensagem,"%d ", lista_numero[j]);
 			}
 		}
@@ -307,17 +316,19 @@ void desencriptar()
 		getchar();
 		long long d = calc_inverso(primo_um, primo_dois, e_dois);
 		FILE *descrip = fopen("descrip.txt", "a");
+		FILE *arquivo;
+		char nome_do_arquivo[MAX];
+		printf("Digite o nome do arquivo para descriptografar!\n");
 
-		printf("Digite a mensagem: \n");
+		scanf("%s", nome_do_arquivo);
+		arquivo = fopen(nome_do_arquivo, "r");
 		int i;
-		for(i = 0; i < MAX; i++)
+		while(!feof(arquivo))
 		{
 			long long c;
-			scanf("%llu%c", &c, &x);
-			if(x == '\n')
-			{
-				long long int numero = calc_M(c, d, primo_um*primo_dois);
-
+			fscanf(arquivo, "%llu%c", &c, &x);
+			long long int numero = calc_M(c, d, primo_um*primo_dois);
+			
 					if(numero == 2)
 					{
 						printf("A");
@@ -453,152 +464,10 @@ void desencriptar()
 						printf(" ");
 						fprintf(descrip,"%c", ' ');
 					}
-				
-				break;
-			}
-			else
-			{
-				long long int numero = calc_M(c, d, primo_um*primo_dois);
-
-					if(numero == 2)
-					{
-						printf("A");
-						fprintf(descrip,"%c", 'A');
-					}
-					if(numero == 3)
-					{
-						printf("B");
-						fprintf(descrip,"%c", 'B');
-					}
-					if(numero == 4)
-					{
-						printf("C");
-						fprintf(descrip,"%c", 'C');
-					}
-					if(numero == 5)
-					{
-						printf("D");
-						fprintf(descrip,"%c", 'D');
-					}
-					if(numero == 6)
-					{
-						printf("E");
-						fprintf(descrip,"%c", 'E');
-					}
-					if(numero == 7)
-					{
-						printf("F");
-						fprintf(descrip,"%c", 'F');
-					}
-					if(numero == 8)
-					{
-						printf("G");
-						fprintf(descrip,"%c", 'G');
-					}
-					if(numero == 9)
-					{
-						printf("H");
-						fprintf(descrip,"%c", 'H');
-					}
-					if(numero == 10)
-					{
-						printf("I");
-						fprintf(descrip,"%c", 'I');
-					}
-					if(numero == 11)
-					{
-						printf("J");
-						fprintf(descrip,"%c", 'J');
-					}
-					if(numero == 12)
-					{
-						printf("K");
-						fprintf(descrip,"%c", 'K');
-					}
-					if(numero == 13)
-					{
-						printf("L");
-						fprintf(descrip,"%c", 'L');
-					}
-					if(numero == 14)
-					{
-						printf("M");
-						fprintf(descrip,"%c", 'M');
-					}
-					if(numero == 15)
-					{
-						printf("N");
-						fprintf(descrip,"%c", 'N');
-					}
-					if(numero == 16)
-					{
-						printf("O");
-						fprintf(descrip,"%c", 'O');
-					}
-					if(numero == 17)
-					{
-						printf("P");
-						fprintf(descrip,"%c", 'P');
-					}
-					if(numero == 18)
-					{
-						printf("Q");
-						fprintf(descrip,"%c", 'Q');
-					}
-					if(numero == 19)
-					{
-						printf("R");
-						fprintf(descrip,"%c", 'R');
-					}
-					if(numero == 20)
-					{
-						printf("S");
-						fprintf(descrip,"%c", 'S');
-					}
-					if(numero == 21)
-					{
-						printf("T");
-						fprintf(descrip,"%c", 'T');
-					}
-					if(numero == 22)
-					{
-						printf("U");
-						fprintf(descrip,"%c", 'Y');
-					}
-					if(numero == 23)
-					{
-						printf("V");
-						fprintf(descrip,"%c", 'V');
-					}
-					if(numero == 24)
-					{
-						printf("W");
-						fprintf(descrip,"%c", 'W');
-					}
-					if(numero == 25)
-					{
-						printf("X");
-						fprintf(descrip,"%c", 'X');
-					}
-					if(numero == 26)
-					{
-						printf("Y");
-						fprintf(descrip,"%c", 'Y');
-					}
-					if(numero == 27)
-					{
-						printf("Z");
-						fprintf(descrip,"%c", 'Z');
-					}
-					if(numero == 28)
-					{
-						printf(" ");
-						fprintf(descrip,"%c", ' ');
-					}
-				}
 		}
-			printf("\n");
+			fclose(arquivo);
 			fclose(descrip);
+			printf("\n");
 }
 
 void menu()
