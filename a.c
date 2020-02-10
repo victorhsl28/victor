@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <math.h>
+#include <time.h>
 #define MAX 1000
 
 long long int calc_M(long long int c, long long int d, long long int n)
@@ -69,8 +70,11 @@ long long eh_primo(long long x)
 void sugerir_e(long long phi, long long e)
 {
 	long long i, d = 0;
-	for(i = 2; d < 5; i++)
+	srand(time(NULL));
+
+	while(d < 5)
 	{
+		i = rand()%phi;
 		if(mdc(phi, i) == 1)
 		{
 			printf("%llu\n", i);
@@ -85,30 +89,43 @@ void chave_publica(long long p, long long q, long long e)
 	scanf("%llu %llu", &p, &q);
 	long long n = p*q;
 	long long phi = (p-1) * (q-1);
-	if(eh_primo(p) == 1 && eh_primo(q) == 1)
+	if(eh_primo(p) == 1)
 	{
-		if(n < 28)
+		if(eh_primo(q) == 1)
 		{
-			printf("Esses numeros sao muito pequenos para o anel!\n");
-			chave_publica(p, q, e);
+			if(n < 28)
+			{
+				printf("Esses numeros sao muito pequenos para o anel!\n");
+				chave_publica(p, q, e);
+			}
+			else
+			{
+
+				printf("Digite um e\n");
+				scanf("%llu", &e);
+				while(mdc(phi, e) != 1)
+				{
+					printf("Esse numero nao e relativamente primo! Sugestoes:\n");
+					sugerir_e(phi, e);
+					scanf("%llu", &e);
+				}
+
+				FILE *chave = fopen("chave.txt", "a");
+				fprintf(chave,"Chave publica: (%llu, %llu)", n, e);
+				fclose(chave);
+				printf("Chave publica: (%llu, %llu)\n", n, e);
+			}
 		}
 		else
 		{
-
-			printf("Digite um e\n");
-			scanf("%llu", &e);
-			while(mdc(phi, e) != 1)
-			{
-				printf("Esse numero nao e relativamente primo! Sugestoes:\n");
-				sugerir_e(phi, e);
-				scanf("%llu", &e);
-			}
-
-			FILE *chave = fopen("chave.txt", "a");
-			fprintf(chave,"Chave publica: (%llu, %llu)", n, e);
-			fclose(chave);
-			printf("Chave publica: (%llu, %llu)\n", n, e);
+			printf("O segundo numero nao e primo!\n");
+			chave_publica(p, q, e);
 		}
+	}
+	else
+	{
+		printf("O primeiro numero nao e primo!\n");
+		chave_publica(p, q, e);
 	}
 }
 
@@ -116,7 +133,7 @@ void criptografar()
 {
 	printf("Digite a mensagem: \n");
 	char lista_letra[MAX];
-	int lista_numero[MAX];
+	int lista_m[MAX];
 	int counter = 0;
 	fgets(lista_letra, MAX, stdin);
 
@@ -133,163 +150,163 @@ void criptografar()
 		if(lista_letra[i] == 'A')
 		{
 			printf("%llu ", equivalente_cifrado(2, e, n));
-			lista_numero[counter] = equivalente_cifrado(2, e, n);
+			lista_m[counter] = equivalente_cifrado(2, e, n);
 			counter++;
 		}
 		if(lista_letra[i] == 'B')
 		{
 			printf("%llu ", equivalente_cifrado(3, e, n));
-			lista_numero[counter] = equivalente_cifrado(3, e, n);
+			lista_m[counter] = equivalente_cifrado(3, e, n);
 			counter++;
 		}
 		if(lista_letra[i] == 'C')
 		{
 			printf("%llu ", equivalente_cifrado(4, e, n));
-			lista_numero[counter] = equivalente_cifrado(4, e, n);
+			lista_m[counter] = equivalente_cifrado(4, e, n);
 			counter++;
 		}
 		if(lista_letra[i] == 'D')
 		{
 			printf("%llu ", equivalente_cifrado(5, e, n));
-			lista_numero[counter] = equivalente_cifrado(5, e, n);
+			lista_m[counter] = equivalente_cifrado(5, e, n);
 			counter++;
 		}
 		if(lista_letra[i] == 'E')
 		{
 			printf("%llu ", equivalente_cifrado(6, e, n));
-			lista_numero[counter] = equivalente_cifrado(6, e, n);
+			lista_m[counter] = equivalente_cifrado(6, e, n);
 			counter++;
 		}
 		if(lista_letra[i] == 'F')
 		{
 			printf("%llu ", equivalente_cifrado(7, e, n));
-			lista_numero[counter] = equivalente_cifrado(7, e, n);
+			lista_m[counter] = equivalente_cifrado(7, e, n);
 			counter++;
 		}
 		if(lista_letra[i] == 'G')
 		{
 			printf("%llu ", equivalente_cifrado(8, e, n));
-			lista_numero[counter] = equivalente_cifrado(8, e, n);
+			lista_m[counter] = equivalente_cifrado(8, e, n);
 			counter++;
 		}
 		if(lista_letra[i] == 'H')
 		{
 			printf("%llu ", equivalente_cifrado(9, e, n));
-			lista_numero[counter] = equivalente_cifrado(9, e, n);
+			lista_m[counter] = equivalente_cifrado(9, e, n);
 			counter++;
 		}
 		if(lista_letra[i] == 'I')
 		{
 			printf("%llu ", equivalente_cifrado(10, e, n));
-			lista_numero[counter] = equivalente_cifrado(10, e, n);
+			lista_m[counter] = equivalente_cifrado(10, e, n);
 			counter++;
 		}
 		if(lista_letra[i] == 'J')
 		{
 			printf("%llu ", equivalente_cifrado(11, e, n));
-			lista_numero[counter] = equivalente_cifrado(11, e, n);
+			lista_m[counter] = equivalente_cifrado(11, e, n);
 			counter++;
 		}
 		if(lista_letra[i] == 'K')
 		{
 			printf("%llu ", equivalente_cifrado(12, e, n));
-			lista_numero[counter] = equivalente_cifrado(12, e, n);
+			lista_m[counter] = equivalente_cifrado(12, e, n);
 			counter++;
 		}
 		if(lista_letra[i] == 'L')
 		{
 			printf("%llu ", equivalente_cifrado(13, e, n));
-			lista_numero[counter] = equivalente_cifrado(13, e, n);
+			lista_m[counter] = equivalente_cifrado(13, e, n);
 			counter++;
 		}
 		if(lista_letra[i] == 'M')
 		{
 			printf("%llu ", equivalente_cifrado(14, e, n));
-			lista_numero[counter] = equivalente_cifrado(14, e, n);
+			lista_m[counter] = equivalente_cifrado(14, e, n);
 			counter++;
 		}
 		if(lista_letra[i] == 'N')
 		{
 			printf("%llu ", equivalente_cifrado(15, e, n));
-			lista_numero[counter] = equivalente_cifrado(15, e, n);
+			lista_m[counter] = equivalente_cifrado(15, e, n);
 			counter++;
 		}
 		if(lista_letra[i] == 'O')
 		{
 			printf("%llu ", equivalente_cifrado(16, e, n));
-			lista_numero[counter] = equivalente_cifrado(16, e, n);
+			lista_m[counter] = equivalente_cifrado(16, e, n);
 			counter++;
 		}
 		if(lista_letra[i] == 'P')
 		{
 			printf("%llu ", equivalente_cifrado(17, e, n));
-			lista_numero[counter] = equivalente_cifrado(17, e, n);
+			lista_m[counter] = equivalente_cifrado(17, e, n);
 			counter++;
 		}
 		if(lista_letra[i] == 'Q')
 		{
 			printf("%llu ", equivalente_cifrado(18, e, n));
-			lista_numero[counter] = equivalente_cifrado(18, e, n);
+			lista_m[counter] = equivalente_cifrado(18, e, n);
 			counter++;
 		}
 		if(lista_letra[i] == 'R')
 		{
 			printf("%llu ", equivalente_cifrado(19, e, n));
-			lista_numero[counter] = equivalente_cifrado(19, e, n);
+			lista_m[counter] = equivalente_cifrado(19, e, n);
 			counter++;
 		}
 		if(lista_letra[i] == 'S')
 		{
 			printf("%llu ", equivalente_cifrado(20, e, n));
-			lista_numero[counter] = equivalente_cifrado(20, e, n);
+			lista_m[counter] = equivalente_cifrado(20, e, n);
 			counter++;
 		}
 		if(lista_letra[i] == 'T')
 		{
 			printf("%llu ", equivalente_cifrado(21, e, n));
-			lista_numero[counter] = equivalente_cifrado(21, e, n);
+			lista_m[counter] = equivalente_cifrado(21, e, n);
 			counter++;
 		}
 		if(lista_letra[i] == 'U')
 		{
 			printf("%llu ", equivalente_cifrado(22, e, n));
-			lista_numero[counter] = equivalente_cifrado(22, e, n);
+			lista_m[counter] = equivalente_cifrado(22, e, n);
 			counter++;
 		}
 		if(lista_letra[i] == 'V')
 		{
 			printf("%llu ", equivalente_cifrado(23, e, n));
-			lista_numero[counter] = equivalente_cifrado(23, e, n);
+			lista_m[counter] = equivalente_cifrado(23, e, n);
 			counter++;
 		}
 		if(lista_letra[i] == 'W')
 		{
 			printf("%llu ", equivalente_cifrado(24, e, n));
-			lista_numero[counter] = equivalente_cifrado(24, e, n);
+			lista_m[counter] = equivalente_cifrado(24, e, n);
 			counter++;
 		}
 		if(lista_letra[i] == 'X')
 		{
 			printf("%llu ", equivalente_cifrado(25, e, n));
-			lista_numero[counter] = equivalente_cifrado(25, e, n);
+			lista_m[counter] = equivalente_cifrado(25, e, n);
 			counter++;
 		}
 		if(lista_letra[i] == 'Y')
 		{
 			printf("%llu ", equivalente_cifrado(26, e, n));
-			lista_numero[counter] = equivalente_cifrado(26, e, n);
+			lista_m[counter] = equivalente_cifrado(26, e, n);
 			counter++;
 		}
 		if(lista_letra[i] == 'Z')
 		{
 			printf("%llu ", equivalente_cifrado(27, e, n));
-			lista_numero[counter] = equivalente_cifrado(27, e, n);
+			lista_m[counter] = equivalente_cifrado(27, e, n);
 			counter++;
 		}
 		if(lista_letra[i] == ' ')
 		{
 			printf("%llu ", equivalente_cifrado(28, e, n));
-			lista_numero[counter] = equivalente_cifrado(28, e, n);
+			lista_m[counter] = equivalente_cifrado(28, e, n);
 			counter++;
 		}
 	}
@@ -299,11 +316,11 @@ void criptografar()
 		{
 			if(j == (counter - 1))
 			{
-				fprintf(mensagem_criptografada,"%d", lista_numero[j]);
+				fprintf(mensagem_criptografada,"%d", lista_m[j]);
 			}
 			else
 			{ 
-				fprintf(mensagem_criptografada,"%d ", lista_numero[j]);
+				fprintf(mensagem_criptografada,"%d ", lista_m[j]);
 			}
 		}
 		fclose(mensagem_criptografada);
@@ -337,139 +354,139 @@ void descriptografar()
 				long long c;
 				fscanf(arquivo, "%llu%c", &c, &x);
 				long long n = p*q;
-				long long int numero = calc_M(c, d, n);
+				long long int m = calc_M(c, d, n);
 				
-						if(numero == 2)
+						if(m == 2)
 						{
 							printf("A");
 							fprintf(msg_descriptografada,"%c", 'A');
 						}
-						if(numero == 3)
+						if(m == 3)
 						{
 							printf("B");
 							fprintf(msg_descriptografada,"%c", 'B');
 						}
-						if(numero == 4)
+						if(m == 4)
 						{
 							printf("C");
 							fprintf(msg_descriptografada,"%c", 'C');
 						}
-						if(numero == 5)
+						if(m == 5)
 						{
 							printf("D");
 							fprintf(msg_descriptografada,"%c", 'D');
 						}
-						if(numero == 6)
+						if(m == 6)
 						{
 							printf("E");
 							fprintf(msg_descriptografada,"%c", 'E');
 						}
-						if(numero == 7)
+						if(m == 7)
 						{
 							printf("F");
 							fprintf(msg_descriptografada,"%c", 'F');
 						}
-						if(numero == 8)
+						if(m == 8)
 						{
 							printf("G");
 							fprintf(msg_descriptografada,"%c", 'G');
 						}
-						if(numero == 9)
+						if(m == 9)
 						{
 							printf("H");
 							fprintf(msg_descriptografada,"%c", 'H');
 						}
-						if(numero == 10)
+						if(m == 10)
 						{
 							printf("I");
 							fprintf(msg_descriptografada,"%c", 'I');
 						}
-						if(numero == 11)
+						if(m == 11)
 						{
 							printf("J");
 							fprintf(msg_descriptografada,"%c", 'J');
 						}
-						if(numero == 12)
+						if(m == 12)
 						{
 							printf("K");
 							fprintf(msg_descriptografada,"%c", 'K');
 						}
-						if(numero == 13)
+						if(m == 13)
 						{
 							printf("L");
 							fprintf(msg_descriptografada,"%c", 'L');
 						}
-						if(numero == 14)
+						if(m == 14)
 						{
 							printf("M");
 							fprintf(msg_descriptografada,"%c", 'M');
 						}
-						if(numero == 15)
+						if(m == 15)
 						{
 							printf("N");
 							fprintf(msg_descriptografada,"%c", 'N');
 						}
-						if(numero == 16)
+						if(m == 16)
 						{
 							printf("O");
 							fprintf(msg_descriptografada,"%c", 'O');
 						}
-						if(numero == 17)
+						if(m == 17)
 						{
 							printf("P");
 							fprintf(msg_descriptografada,"%c", 'P');
 						}
-						if(numero == 18)
+						if(m == 18)
 						{
 							printf("Q");
 							fprintf(msg_descriptografada,"%c", 'Q');
 						}
-						if(numero == 19)
+						if(m == 19)
 						{
 							printf("R");
 							fprintf(msg_descriptografada,"%c", 'R');
 						}
-						if(numero == 20)
+						if(m == 20)
 						{
 							printf("S");
 							fprintf(msg_descriptografada,"%c", 'S');
 						}
-						if(numero == 21)
+						if(m == 21)
 						{
 							printf("T");
 							fprintf(msg_descriptografada,"%c", 'T');
 						}
-						if(numero == 22)
+						if(m == 22)
 						{
 							printf("U");
 							fprintf(msg_descriptografada,"%c", 'Y');
 						}
-						if(numero == 23)
+						if(m == 23)
 						{
 							printf("V");
 							fprintf(msg_descriptografada,"%c", 'V');
 						}
-						if(numero == 24)
+						if(m == 24)
 						{
 							printf("W");
 							fprintf(msg_descriptografada,"%c", 'W');
 						}
-						if(numero == 25)
+						if(m == 25)
 						{
 							printf("X");
 							fprintf(msg_descriptografada,"%c", 'X');
 						}
-						if(numero == 26)
+						if(m == 26)
 						{
 							printf("Y");
 							fprintf(msg_descriptografada,"%c", 'Y');
 						}
-						if(numero == 27)
+						if(m == 27)
 						{
 							printf("Z");
 							fprintf(msg_descriptografada,"%c", 'Z');
 						}
-						if(numero == 28)
+						if(m == 28)
 						{
 							printf(" ");
 							fprintf(msg_descriptografada,"%c", ' ');
