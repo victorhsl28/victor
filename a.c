@@ -5,19 +5,19 @@
 #include <time.h>
 #define MAX 4000
 
-long long int exponenciacao_modular(long long int base, long long int expoente, long long int modulo)
+long long int exponenciacao_modular(long long int base, long long int expoente, long long int modulo) //funcao para calcular a exponenciacao modular atraves do resto
 {
    long long int counter = 1;
    while(expoente > 0)
    {
-      counter *= base;
-      counter %= modulo;
+      counter = (counter * base);
+      counter = (counter % modulo);
       expoente--;
    }
    return counter;
 }
 
-long long calc_inverso(long long p, long long q, long long e)
+long long calc_inverso(long long p, long long q, long long e) //calcular o inverso modular
 {
 	long long i;
 	long long phi = (p-1)*(q-1);
@@ -30,12 +30,7 @@ long long calc_inverso(long long p, long long q, long long e)
 	}
 }
 
-long long equivalente_cifrado(long long m, long long e, long long n)
-{
-	return exponenciacao_modular(m, e, n);
-}
-
-long long mdc(long long x, long long y)
+long long mdc(long long x, long long y) //calcular o mdc entre dois numeros
 {
 	if (y == 0)
 	{
@@ -47,7 +42,7 @@ long long mdc(long long x, long long y)
 	}
 }
 
-long long eh_primo(long long x)
+long long eh_primo(long long x) //verificar se um numero e primo
 {
 	long long i, counter = 0;
 	for (i = 1; i <= x; i++)
@@ -67,7 +62,7 @@ long long eh_primo(long long x)
 	}
 }
 
-void sugerir_e(long long phi, long long e)
+void sugerir_e(long long phi, long long e) //caso o e fornecido pelo usuario nao seja relativamente primo ao phi, void sugere um e valido
 {
 	long long i, d = 0;
 	srand(time(NULL));
@@ -83,7 +78,7 @@ void sugerir_e(long long phi, long long e)
 	}
 }
 
-void chave_publica(long long p, long long q, long long e)
+void chave_publica(long long p, long long q, long long e) //gerar a chave publica
 {
 	printf("Digite um par de numeros primos:\n");
 	scanf("%llu %llu", &p, &q);
@@ -95,7 +90,7 @@ void chave_publica(long long p, long long q, long long e)
 		{
 			if(n < 28)
 			{
-				printf("Esses numeros sao muito pequenos para o anel!\n");
+				printf("Esses numeros sao muito pequenos para o anel!\n"); //n menor que os 28 caracteres da tabela
 				chave_publica(p, q, e);
 			}
 			else
@@ -145,168 +140,168 @@ void criptografar()
 	printf("Mensagem criptografada: ");
 	long long i;
 
-	for(i = 0; i < strlen(lista_letra); i++)
+	for(i = 0; i < strlen(lista_letra); i++) //calcular o equivalente cifrado de cada letra de acordo com a tabela
 	{
 		if(lista_letra[i] == 'A')
 		{
-			printf("%llu ", equivalente_cifrado(2, e, n));
-			lista_m[counter] = equivalente_cifrado(2, e, n);
+			printf("%llu ", exponenciacao_modular(2, e, n));
+			lista_m[counter] = exponenciacao_modular(2, e, n);
 			counter++;
 		}
 		if(lista_letra[i] == 'B')
 		{
-			printf("%llu ", equivalente_cifrado(3, e, n));
-			lista_m[counter] = equivalente_cifrado(3, e, n);
+			printf("%llu ", exponenciacao_modular(3, e, n));
+			lista_m[counter] = exponenciacao_modular(3, e, n);
 			counter++;
 		}
 		if(lista_letra[i] == 'C')
 		{
-			printf("%llu ", equivalente_cifrado(4, e, n));
-			lista_m[counter] = equivalente_cifrado(4, e, n);
+			printf("%llu ", exponenciacao_modular(4, e, n));
+			lista_m[counter] = exponenciacao_modular(4, e, n);
 			counter++;
 		}
 		if(lista_letra[i] == 'D')
 		{
-			printf("%llu ", equivalente_cifrado(5, e, n));
-			lista_m[counter] = equivalente_cifrado(5, e, n);
+			printf("%llu ", exponenciacao_modular(5, e, n));
+			lista_m[counter] = exponenciacao_modular(5, e, n);
 			counter++;
 		}
 		if(lista_letra[i] == 'E')
 		{
-			printf("%llu ", equivalente_cifrado(6, e, n));
-			lista_m[counter] = equivalente_cifrado(6, e, n);
+			printf("%llu ", exponenciacao_modular(6, e, n));
+			lista_m[counter] = exponenciacao_modular(6, e, n);
 			counter++;
 		}
 		if(lista_letra[i] == 'F')
 		{
-			printf("%llu ", equivalente_cifrado(7, e, n));
-			lista_m[counter] = equivalente_cifrado(7, e, n);
+			printf("%llu ", exponenciacao_modular(7, e, n));
+			lista_m[counter] = exponenciacao_modular(7, e, n);
 			counter++;
 		}
 		if(lista_letra[i] == 'G')
 		{
-			printf("%llu ", equivalente_cifrado(8, e, n));
-			lista_m[counter] = equivalente_cifrado(8, e, n);
+			printf("%llu ", exponenciacao_modular(8, e, n));
+			lista_m[counter] = exponenciacao_modular(8, e, n);
 			counter++;
 		}
 		if(lista_letra[i] == 'H')
 		{
-			printf("%llu ", equivalente_cifrado(9, e, n));
-			lista_m[counter] = equivalente_cifrado(9, e, n);
+			printf("%llu ", exponenciacao_modular(9, e, n));
+			lista_m[counter] = exponenciacao_modular(9, e, n);
 			counter++;
 		}
 		if(lista_letra[i] == 'I')
 		{
-			printf("%llu ", equivalente_cifrado(10, e, n));
-			lista_m[counter] = equivalente_cifrado(10, e, n);
+			printf("%llu ", exponenciacao_modular(10, e, n));
+			lista_m[counter] = exponenciacao_modular(10, e, n);
 			counter++;
 		}
 		if(lista_letra[i] == 'J')
 		{
-			printf("%llu ", equivalente_cifrado(11, e, n));
-			lista_m[counter] = equivalente_cifrado(11, e, n);
+			printf("%llu ", exponenciacao_modular(11, e, n));
+			lista_m[counter] = exponenciacao_modular(11, e, n);
 			counter++;
 		}
 		if(lista_letra[i] == 'K')
 		{
-			printf("%llu ", equivalente_cifrado(12, e, n));
-			lista_m[counter] = equivalente_cifrado(12, e, n);
+			printf("%llu ", exponenciacao_modular(12, e, n));
+			lista_m[counter] = exponenciacao_modular(12, e, n);
 			counter++;
 		}
 		if(lista_letra[i] == 'L')
 		{
-			printf("%llu ", equivalente_cifrado(13, e, n));
-			lista_m[counter] = equivalente_cifrado(13, e, n);
+			printf("%llu ", exponenciacao_modular(13, e, n));
+			lista_m[counter] = exponenciacao_modular(13, e, n);
 			counter++;
 		}
 		if(lista_letra[i] == 'M')
 		{
-			printf("%llu ", equivalente_cifrado(14, e, n));
-			lista_m[counter] = equivalente_cifrado(14, e, n);
+			printf("%llu ", exponenciacao_modular(14, e, n));
+			lista_m[counter] = exponenciacao_modular(14, e, n);
 			counter++;
 		}
 		if(lista_letra[i] == 'N')
 		{
-			printf("%llu ", equivalente_cifrado(15, e, n));
-			lista_m[counter] = equivalente_cifrado(15, e, n);
+			printf("%llu ", exponenciacao_modular(15, e, n));
+			lista_m[counter] = exponenciacao_modular(15, e, n);
 			counter++;
 		}
 		if(lista_letra[i] == 'O')
 		{
-			printf("%llu ", equivalente_cifrado(16, e, n));
-			lista_m[counter] = equivalente_cifrado(16, e, n);
+			printf("%llu ", exponenciacao_modular(16, e, n));
+			lista_m[counter] = exponenciacao_modular(16, e, n);
 			counter++;
 		}
 		if(lista_letra[i] == 'P')
 		{
-			printf("%llu ", equivalente_cifrado(17, e, n));
-			lista_m[counter] = equivalente_cifrado(17, e, n);
+			printf("%llu ", exponenciacao_modular(17, e, n));
+			lista_m[counter] = exponenciacao_modular(17, e, n);
 			counter++;
 		}
 		if(lista_letra[i] == 'Q')
 		{
-			printf("%llu ", equivalente_cifrado(18, e, n));
-			lista_m[counter] = equivalente_cifrado(18, e, n);
+			printf("%llu ", exponenciacao_modular(18, e, n));
+			lista_m[counter] = exponenciacao_modular(18, e, n);
 			counter++;
 		}
 		if(lista_letra[i] == 'R')
 		{
-			printf("%llu ", equivalente_cifrado(19, e, n));
-			lista_m[counter] = equivalente_cifrado(19, e, n);
+			printf("%llu ", exponenciacao_modular(19, e, n));
+			lista_m[counter] = exponenciacao_modular(19, e, n);
 			counter++;
 		}
 		if(lista_letra[i] == 'S')
 		{
-			printf("%llu ", equivalente_cifrado(20, e, n));
-			lista_m[counter] = equivalente_cifrado(20, e, n);
+			printf("%llu ", exponenciacao_modular(20, e, n));
+			lista_m[counter] = exponenciacao_modular(20, e, n);
 			counter++;
 		}
 		if(lista_letra[i] == 'T')
 		{
-			printf("%llu ", equivalente_cifrado(21, e, n));
-			lista_m[counter] = equivalente_cifrado(21, e, n);
+			printf("%llu ", exponenciacao_modular(21, e, n));
+			lista_m[counter] = exponenciacao_modular(21, e, n);
 			counter++;
 		}
 		if(lista_letra[i] == 'U')
 		{
-			printf("%llu ", equivalente_cifrado(22, e, n));
-			lista_m[counter] = equivalente_cifrado(22, e, n);
+			printf("%llu ", exponenciacao_modular(22, e, n));
+			lista_m[counter] = exponenciacao_modular(22, e, n);
 			counter++;
 		}
 		if(lista_letra[i] == 'V')
 		{
-			printf("%llu ", equivalente_cifrado(23, e, n));
-			lista_m[counter] = equivalente_cifrado(23, e, n);
+			printf("%llu ", exponenciacao_modular(23, e, n));
+			lista_m[counter] = exponenciacao_modular(23, e, n);
 			counter++;
 		}
 		if(lista_letra[i] == 'W')
 		{
-			printf("%llu ", equivalente_cifrado(24, e, n));
-			lista_m[counter] = equivalente_cifrado(24, e, n);
+			printf("%llu ", exponenciacao_modular(24, e, n));
+			lista_m[counter] = exponenciacao_modular(24, e, n);
 			counter++;
 		}
 		if(lista_letra[i] == 'X')
 		{
-			printf("%llu ", equivalente_cifrado(25, e, n));
-			lista_m[counter] = equivalente_cifrado(25, e, n);
+			printf("%llu ", exponenciacao_modular(25, e, n));
+			lista_m[counter] = exponenciacao_modular(25, e, n);
 			counter++;
 		}
 		if(lista_letra[i] == 'Y')
 		{
-			printf("%llu ", equivalente_cifrado(26, e, n));
-			lista_m[counter] = equivalente_cifrado(26, e, n);
+			printf("%llu ", exponenciacao_modular(26, e, n));
+			lista_m[counter] = exponenciacao_modular(26, e, n);
 			counter++;
 		}
 		if(lista_letra[i] == 'Z')
 		{
-			printf("%llu ", equivalente_cifrado(27, e, n));
-			lista_m[counter] = equivalente_cifrado(27, e, n);
+			printf("%llu ", exponenciacao_modular(27, e, n));
+			lista_m[counter] = exponenciacao_modular(27, e, n);
 			counter++;
 		}
 		if(lista_letra[i] == ' ')
 		{
-			printf("%llu ", equivalente_cifrado(28, e, n));
-			lista_m[counter] = equivalente_cifrado(28, e, n);
+			printf("%llu ", exponenciacao_modular(28, e, n));
+			lista_m[counter] = exponenciacao_modular(28, e, n);
 			counter++;
 		}
 	}
@@ -354,7 +349,7 @@ void descriptografar()
 				long long c;
 				fscanf(arquivo, "%llu%c", &c, &x);
 				long long n = p*q;
-				long long int m = exponenciacao_modular(c, d, n);
+				long long int m = exponenciacao_modular(c, d, n); //encontrar o m
 				
 						if(m == 2)
 						{
@@ -501,10 +496,10 @@ void descriptografar()
 void menu()
 {
 	long long escolha, p, q, e;
-	printf("--------------------------------------------------------------\n");
+	printf("---------------------------------------------------------\n");
 	printf("Escolha uma opcao:\n");
-	printf("1- Gerar Chave Publica 2- Encriptar 3- Descriptografar 4- Sair\n");
-	printf("--------------------------------------------------------------\n");
+	printf("1- Gerar Chave Publica 2- Encriptar 3- Descriptar 4- Sair\n");
+	printf("---------------------------------------------------------\n");
 	scanf("%llu", &escolha);
 	getchar();
 
@@ -533,10 +528,10 @@ int main()
 
 		//menu
 		long long escolha, p, q, e;
-		printf("--------------------------------------------------------------\n");
+		printf("---------------------------------------------------------\n");
 		printf("Escolha uma opcao:\n");
-		printf("1- Gerar Chave Publica 2- Encriptar 3- Descriptografar 4- Sair\n");
-		printf("--------------------------------------------------------------\n");
+		printf("1- Gerar Chave Publica 2- Encriptar 3- Descriptar 4- Sair\n");
+		printf("---------------------------------------------------------\n");
 		scanf("%llu", &escolha);
 		getchar();
 
