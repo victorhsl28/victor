@@ -3,16 +3,16 @@
 #include <string.h>
 #include <math.h>
 #include <time.h>
-#define MAX 1000
+#define MAX 4000
 
-long long int calc_M(long long int c, long long int d, long long int n)
+long long int exponenciacao_modular(long long int base, long long int expoente, long long int modulo)
 {
    long long int counter = 1;
-   while(d > 0)
+   while(expoente > 0)
    {
-      counter *= c;
-      counter %= n;
-      d--;
+      counter *= base;
+      counter %= modulo;
+      expoente--;
    }
    return counter;
 }
@@ -32,7 +32,7 @@ long long calc_inverso(long long p, long long q, long long e)
 
 long long equivalente_cifrado(long long m, long long e, long long n)
 {
-	return fmod(pow(m, e), n);
+	return exponenciacao_modular(m, e, n);
 }
 
 long long mdc(long long x, long long y)
@@ -354,7 +354,7 @@ void descriptografar()
 				long long c;
 				fscanf(arquivo, "%llu%c", &c, &x);
 				long long n = p*q;
-				long long int m = calc_M(c, d, n);
+				long long int m = exponenciacao_modular(c, d, n);
 				
 						if(m == 2)
 						{
