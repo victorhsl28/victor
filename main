@@ -118,7 +118,7 @@ void criptografar()
 {
 	printf("Digite a mensagem: \n");
 	char lista_letra[MAX];
-	int lista_m[MAX];
+	int lista_numero[MAX];
 	int counter = 0;
 	fgets(lista_letra, MAX, stdin);
 
@@ -130,7 +130,7 @@ void criptografar()
 	printf("Mensagem criptografada: ");
 	long long i;
 
-	processo_criptografico(lista_letra, lista_m, counter, n, e, i);
+	processo_criptografico(lista_letra, lista_numero, counter, n, e, i);
 	printf("\n");
 }
 
