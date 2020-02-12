@@ -7,19 +7,6 @@
 #include <time.h>
 #define MAX 4000
 
-long long calc_inverso(long long p, long long q, long long e) //calcular o inverso modular
-{
-	long long i;
-	long long phi = (p-1)*(q-1);
-	for(i = 1; i < phi; i++)
-	{
-		if(fmod(i*e, phi) == 1)
-		{
-			return i;
-		}
-	}
-}
-
 long long mdc(long long x, long long y) //calcular o mdc entre dois numeros
 {
 	if (y == 0)
@@ -118,32 +105,19 @@ void criptografar()
 {
 	printf("Digite a mensagem: \n");
 	char lista_letra[MAX];
-	int lista_numero[MAX];
-	int counter = 0;
 	fgets(lista_letra, MAX, stdin);
-
 	printf("Digite a chave publica recebida previamente:\n");
-
 	long long n, e;
 	scanf("%llu %llu", &n, &e);
-
-	printf("Mensagem criptografada: ");
-	long long i;
-
-	processo_criptografico(lista_letra, lista_numero, counter, n, e, i);
-	printf("\n");
+	processo_criptografico(lista_letra, n, e); //Processo separado em outra biblioteca
 }
 
 void descriptografar()
 {
 	printf("Digite os dois numeros primos e o e:\n");
-	char x;
 	long long p, q, e;
 	scanf("%llu %llu %llu", &p, &q, &e);
-	getchar();
-	long long d = calc_inverso(p, q, e);
-	processo_descriptografico(x, p, q, e, d);
-	printf("\n");
+	processo_descriptografico(p, q, e); //Processo separado em outra biblioteca
 }
 
 int main()
