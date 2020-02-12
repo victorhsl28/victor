@@ -4,11 +4,27 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <math.h>
 #define MAX 4000
 
-
-void processo_descriptografico(char x, long long p, long long q, long long e, long long d)
+long long calc_inverso(long long p, long long q, long long e) //calcular o inverso modular
 {
+	long long i;
+	long long phi = (p-1)*(q-1);
+	for(i = 1; i < phi; i++)
+	{
+		if(fmod(i*e, phi) == 1)
+		{
+			return i;
+		}
+	}
+}
+
+
+void processo_descriptografico(long long p, long long q, long long e)
+{
+	long long d = calc_inverso(p, q, e);
+	char x;
 	FILE *msg_descriptografada = fopen("msg_descriptografada.txt", "a");
 	FILE *arquivo;
 	char nome_do_arquivo[MAX];
@@ -19,7 +35,7 @@ void processo_descriptografico(char x, long long p, long long q, long long e, lo
 	if(arquivo == NULL)
 	{
 		printf("Arquivo nao encontrado!\n");
-		processo_descriptografico(x, p, q, e, d);
+		processo_descriptografico(p, q, e);
 	}
 	else
 	{
@@ -133,7 +149,7 @@ void processo_descriptografico(char x, long long p, long long q, long long e, lo
 			if(m == 22)
 			{
 				printf("U");
-				fprintf(msg_descriptografada,"%c", 'Y');
+				fprintf(msg_descriptografada,"%c", 'U');
 			}
 			if(m == 23)
 			{
@@ -168,6 +184,7 @@ void processo_descriptografico(char x, long long p, long long q, long long e, lo
 		}
 		//fclose(arquivo);
 		fclose(msg_descriptografada);
+		printf("\n");
 	}
 }
 
