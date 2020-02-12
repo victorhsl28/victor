@@ -3,6 +3,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <math.h>
 #define MAX 4000
 
 long long int exponenciacao_modular(long long int base, long long int expoente, long long int modulo) //funcao para calcular a exponenciacao modular atraves do resto
@@ -16,8 +17,12 @@ long long int exponenciacao_modular(long long int base, long long int expoente, 
    return counter;
 }
 
-void processo_criptografico(char lista_letra[], int lista_numero[], int counter, long long n, long long e, long long i)
+void processo_criptografico(char lista_letra[], long long n, long long e)
 {
+	long long i;
+	int counter = 0;
+	int lista_numero[MAX];
+	printf("Mensagem criptografada: ");
 	for(i = 0; i < strlen(lista_letra); i++) //calcular o equivalente cifrado de cada letra de acordo com a tabela
 	{
 		if(lista_letra[i] == 'A')
@@ -197,6 +202,7 @@ void processo_criptografico(char lista_letra[], int lista_numero[], int counter,
 		}
 	}
 	pclose(mensagem_criptografada);
+	printf("\n");
 }
 
 #endif
