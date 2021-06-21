@@ -23,10 +23,10 @@ results = [0, 0, 0]
 
 
 def getdata(**context):
-    ck = "WHXLeTnVg5IN45MJ4GhOa7xJR"
-    cs = "gk4EpogL66muzuUwQWCj5ioXQgJ6zIKHTfAzDNUjrAmEnJAByP"
-    atk = "1853292469-soFAK2XuyCQqWZwRUUKc5rIOoKdCCvyVaYj9PKP"
-    ats = "Z51A2dzOR0xl7BXXArEvOG3eagFbwPTUZGOvteRSpWoJJ"
+    ck = ""
+    cs = ""
+    atk = ""
+    ats = ""
 
     auth = tweepy.OAuthHandler(ck, cs)
     auth.set_access_token(atk, ats)
